@@ -5,3 +5,5 @@ macos
 test
 web
 windows
+.dart_tool
+build
