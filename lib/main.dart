@@ -27,6 +27,7 @@ class FabExample extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: const FloatingActionButton(
         onPressed: null,
+        shape: HeartShapeBorder(),
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -42,4 +43,37 @@ class FabExample extends StatelessWidget {
     );
   }
 
+}
+
+class HeartShapeBorder extends ShapeBorder {
+  const HeartShapeBorder();
+
+  @override
+  EdgeInsetsGeometry get dimensions => EdgeInsets.zero;
+
+  @override
+  Path getInnerPath(Rect rect, {TextDirection? textDirection}) {
+    return getOuterPath(rect, textDirection: textDirection);
+  }
+
+  @override
+  Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
+    final path = Path();
+    double width = rect.width;
+    double height = rect.height - 5;
+    path.moveTo(0.5 * width, height * 0.35);
+    path.cubicTo(0.2 * width, height * 0.1, -0.25 * width, height * 0.6, 0.5 * width, height);
+    path.moveTo(0.5 * width, height * 0.35);
+    path.cubicTo(0.8 * width, height * 0.1, 1.25 * width, height * 0.6, 0.5 * width, height);
+    path.close();
+    return path;
+  }
+
+  @override
+  void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {}
+
+  @override
+  ShapeBorder scale(double t) {
+    return HeartShapeBorder();
+  }
 }
