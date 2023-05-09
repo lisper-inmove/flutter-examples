@@ -22,14 +22,18 @@ class FabExample extends StatelessWidget {
       appBar: AppBar(
         title: const Text('FloatingActionButton Sample'),
       ),
-      body: const Center(child: Text('Press the button below!')),
-      floatingActionButton: FloatingActionButton(
+      body: const Center(
+        child: Text('Press the button with a label below!'),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           // Add your onPressed code here!
         },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.navigation),
+        label: const Text('Approve'),
+        icon: const Icon(Icons.thumb_up),
+        backgroundColor: Colors.pink,
       ),
     );
   }
 }
+
