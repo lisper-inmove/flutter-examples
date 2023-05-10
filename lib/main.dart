@@ -8,37 +8,53 @@ class MyHeartShape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 100,
-      height: 100,
-      child: CustomPaint(
-        painter: MyPainter(),
-      ),
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          margin: EdgeInsets.all(80),
+          height: 300,
+          width: 300,
+          decoration: const BoxDecoration(
+            color: Colors.green,
+
+            // 单独设置上下左右
+            // 不能与color,borderRadius,shape共用
+            // border: Border(
+            //   top: BorderSide(width: 1.0, color: Colors.lightBlue.shade50),
+            //   right: BorderSide(width: 1.0, color: Colors.lightBlue.shade50),
+            //   bottom: BorderSide(width: 1.0, color: Colors.lightBlue.shade900),
+            //   left: BorderSide(width: 1.0, color: Colors.lightBlue.shade50),
+            // ),
+
+            // 一次设置4条边
+            // color: const Color(0xaabbccff),
+            // borderRadius: BorderRadius.all(
+            //   Radius.circular(80),
+            // ),
+
+            boxShadow: [ // 数组索引大的会覆盖索引小的
+              BoxShadow(
+                color: Colors.red,
+                // 往外扩散的半径
+                spreadRadius: 3,
+                // 虚化的半径
+                blurRadius: 4,
+                // 相对于(0,0)的偏移
+                offset: Offset(0, 3),
+              ),
+              BoxShadow(
+                color: Colors.blue,
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3),
+              ),
+            ],
+
+            shape: BoxShape.circle,
+
+          ),
+        ),
+      )
     );
   }
 }
-
-class MyPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = Colors.red
-      ..style = PaintingStyle.fill;
-
-    Path path = Path()
-      ..moveTo(size.width * 0.5, size.height * 0.2)
-      ..cubicTo(size.width * 0.8, 0, size.width, size.height * 0.3, size.width, size.height * 0.6)
-      ..cubicTo(size.width, size.height * 0.9, size.width * 0.5, size.height, size.width * 0.5, size.height)
-      ..cubicTo(size.width * 0.5, size.height, 0, size.height * 0.9, 0, size.height * 0.6)
-      ..cubicTo(0, size.height * 0.3, size.width * 0.2, 0, size.width * 0.5, size.height * 0.2)
-      ..close();
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-  }
-}
-
