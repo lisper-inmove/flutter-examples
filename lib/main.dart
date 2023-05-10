@@ -1,99 +1,44 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const MyHeartShape());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyHeartShape extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: FabExample(),
-    );
-  }
-}
-
-class FabExample extends StatelessWidget {
-
-  const FabExample({super.key});
+  const MyHeartShape({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
-      floatingActionButton: FloatingActionButton(
-        onPressed: null,
-        shape: HeartShapeBorder(),
-        // child: Icon(Icons.add),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: null, 
-              tooltip: 'Menu',
-              icon: Icon(Icons.menu),
-            ),
-            IconButton(
-              onPressed: null, 
-              tooltip: 'pix',
-              icon: Icon(Icons.pix),
-            ),
-            IconButton(
-              onPressed: null, 
-              tooltip: 'Home',
-              icon: Icon(Icons.home),
-            ),
-          ],
-        ),
+    return SizedBox(
+      width: 100,
+      height: 100,
+      child: CustomPaint(
+        painter: MyPainter(),
       ),
     );
   }
 }
 
-class HeartShapeBorder extends ShapeBorder {
-  const HeartShapeBorder();
-
+class MyPainter extends CustomPainter {
   @override
-  EdgeInsetsGeometry get dimensions => EdgeInsets.zero;
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = Colors.red
+      ..style = PaintingStyle.fill;
 
-  @override
-  Path getInnerPath(Rect rect, {TextDirection? textDirection}) {
-    return getOuterPath(rect, textDirection: textDirection);
+    Path path = Path()
+      ..moveTo(size.width * 0.5, size.height * 0.2)
+      ..cubicTo(size.width * 0.8, 0, size.width, size.height * 0.3, size.width, size.height * 0.6)
+      ..cubicTo(size.width, size.height * 0.9, size.width * 0.5, size.height, size.width * 0.5, size.height)
+      ..cubicTo(size.width * 0.5, size.height, 0, size.height * 0.9, 0, size.height * 0.6)
+      ..cubicTo(0, size.height * 0.3, size.width * 0.2, 0, size.width * 0.5, size.height * 0.2)
+      ..close();
+
+    canvas.drawPath(path, paint);
   }
 
   @override
-  Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
-    final path = Path();
-
-    // heart的形状
-    final height = rect.width;
-    final width = rect.height;
-    path.moveTo(0.5 * width, height * 0.35);
-    path.cubicTo(0.2 * width, height * 0.1, -0.25 * width, height * 0.6, 0.5 * width, height);
-    path.moveTo(0.5 * width, height * 0.35);
-    path.cubicTo(0.8 * width, height * 0.1, 1.25 * width, height * 0.6, 0.5 * width, height);
-
-    // 星星的形状
-    // final height = rect.width / 2;
-    // final width = rect.height / 2;
-    // final radius = width;
-    // path.moveTo(height, width + radius);
-    // path.arcToPoint(Offset(height - radius, width), radius: Radius.circular(radius), clockwise: false);
-    // path.arcToPoint(Offset(height, width - radius), radius: Radius.circular(radius), clockwise: false);
-    // path.arcToPoint(Offset(height + radius, width), radius: Radius.circular(radius), clockwise: false);
-    // path.arcToPoint(Offset(height, width + radius), radius: Radius.circular(radius), clockwise: false);
-
-    return path;
-  }
-
-  @override
-  void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {}
-
-  @override
-  ShapeBorder scale(double t) {
-    return this;
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }
+
