@@ -7,11 +7,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorSchemeSeed: const Color(0xff6750a4),
-      ),
-      home: const FabExample(),
+    return const MaterialApp(
+      home: FabExample(),
     );
   }
 }
@@ -22,27 +19,38 @@ class FabExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
-      floatingActionButton: const FloatingActionButton(
+    return const Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      floatingActionButton: FloatingActionButton(
         onPressed: null,
         shape: HeartShapeBorder(),
-        child: Icon(Icons.add),
+        // child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
+        shape: CircularNotchedRectangle(),
         child: Row(
-          children: const [
-            IconButton(onPressed: null, icon: Icon(Icons.tv)),
-            IconButton(onPressed: null, icon: Icon(Icons.tv)),
-            IconButton(onPressed: null, icon: Icon(Icons.tv)),
+          children: [
+            IconButton(
+              onPressed: null, 
+              tooltip: 'Menu',
+              icon: Icon(Icons.menu),
+            ),
+            IconButton(
+              onPressed: null, 
+              tooltip: 'pix',
+              icon: Icon(Icons.pix),
+            ),
+            IconButton(
+              onPressed: null, 
+              tooltip: 'Home',
+              icon: Icon(Icons.home),
+            ),
           ],
         ),
       ),
     );
   }
-
 }
 
 class HeartShapeBorder extends ShapeBorder {
@@ -59,13 +67,25 @@ class HeartShapeBorder extends ShapeBorder {
   @override
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
     final path = Path();
-    double width = rect.width;
-    double height = rect.height - 5;
+
+    // heart的形状
+    final height = rect.width;
+    final width = rect.height;
     path.moveTo(0.5 * width, height * 0.35);
     path.cubicTo(0.2 * width, height * 0.1, -0.25 * width, height * 0.6, 0.5 * width, height);
     path.moveTo(0.5 * width, height * 0.35);
     path.cubicTo(0.8 * width, height * 0.1, 1.25 * width, height * 0.6, 0.5 * width, height);
-    path.close();
+
+    // 星星的形状
+    // final height = rect.width / 2;
+    // final width = rect.height / 2;
+    // final radius = width;
+    // path.moveTo(height, width + radius);
+    // path.arcToPoint(Offset(height - radius, width), radius: Radius.circular(radius), clockwise: false);
+    // path.arcToPoint(Offset(height, width - radius), radius: Radius.circular(radius), clockwise: false);
+    // path.arcToPoint(Offset(height + radius, width), radius: Radius.circular(radius), clockwise: false);
+    // path.arcToPoint(Offset(height, width + radius), radius: Radius.circular(radius), clockwise: false);
+
     return path;
   }
 
@@ -74,6 +94,6 @@ class HeartShapeBorder extends ShapeBorder {
 
   @override
   ShapeBorder scale(double t) {
-    return HeartShapeBorder();
+    return this;
   }
 }
