@@ -8,53 +8,65 @@ class MyHeartShape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          margin: EdgeInsets.all(80),
-          height: 300,
-          width: 300,
-          decoration: const BoxDecoration(
-            color: Colors.green,
-
-            // 单独设置上下左右
-            // 不能与color,borderRadius,shape共用
-            // border: Border(
-            //   top: BorderSide(width: 1.0, color: Colors.lightBlue.shade50),
-            //   right: BorderSide(width: 1.0, color: Colors.lightBlue.shade50),
-            //   bottom: BorderSide(width: 1.0, color: Colors.lightBlue.shade900),
-            //   left: BorderSide(width: 1.0, color: Colors.lightBlue.shade50),
-            // ),
-
-            // 一次设置4条边
-            // color: const Color(0xaabbccff),
-            // borderRadius: BorderRadius.all(
-            //   Radius.circular(80),
-            // ),
-
-            boxShadow: [ // 数组索引大的会覆盖索引小的
-              BoxShadow(
-                color: Colors.red,
-                // 往外扩散的半径
-                spreadRadius: 3,
-                // 虚化的半径
-                blurRadius: 4,
-                // 相对于(0,0)的偏移
-                offset: Offset(0, 3),
-              ),
-              BoxShadow(
-                color: Colors.blue,
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3),
-              ),
-            ],
-
-            shape: BoxShape.circle,
-
-          ),
-        ),
-      )
+    return const MaterialApp(
+      home: HomePage(),
     );
   }
 }
+
+class HomePage extends StatelessWidget {
+
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: CustomPaint(
+          painter: Chevron(),
+          child: Container(
+            width: 100.0,
+            height: 120.0,
+            child: const Padding(
+              padding: EdgeInsets.only(top: 30.0),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text("1", style: TextStyle(fontSize: 24.0)),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Chevron extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    const Gradient gradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [Colors.orangeAccent, Colors.yellow],
+      tileMode: TileMode.clamp,
+    );
+
+    final Rect colorBounds = Rect.fromLTRB(0, 0, size.width, size.height);
+    final Paint paint = Paint()
+      ..shader = gradient.createShader(colorBounds);
+
+    Path path = Path();
+    path.moveTo(0, 0);
+    path.lineTo(0, size.height);
+    path.lineTo(size.width / 2, size.height - size.height / 3);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, 0);
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
