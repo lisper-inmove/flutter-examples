@@ -22,23 +22,82 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CustomPaint(
-          painter: Chevron(),
-          child: Container(
-            width: 100.0,
-            height: 120.0,
-            child: const Padding(
-              padding: EdgeInsets.only(top: 30.0),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Text("1", style: TextStyle(fontSize: 24.0)),
+        child: Column(
+          children: [
+            CustomPaint(
+              // painter: Chevron(),
+              foregroundPainter: Chevron(),
+              child: Container(
+                width: 100.0,
+                height: 120.0,
+
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 10,
+                      spreadRadius: 1,
+                      color: Colors.red,
+                    ),
+                  ]
+                ),
+
+                child: const Padding(
+                  padding: EdgeInsets.only(top: 30.0),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    // child: Text("1", style: TextStyle(fontSize: 24.0)),
+                    child: TextButton(onPressed: null, child: Text('text')),
+                  ),
+                ),
               ),
             ),
-          ),
+
+            const SizedBox(width: 100, height: 100,),
+
+            CustomPaint(
+              foregroundPainter: Chevron(),
+              child: ClipRect(
+                clipper: const ClipPad(
+                  padding: EdgeInsets.only(left: 30, top: 30, right: 30),
+                ),
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.red,
+                        blurRadius: 20,
+                        spreadRadius: 5
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
+}
+
+/// Clips the given object by its size.
+/// The clip area can optionally be enlarged by a given padding.
+class ClipPad extends CustomClipper<Rect> {
+  final EdgeInsets padding;
+    
+  const ClipPad({
+    this.padding = EdgeInsets.zero
+  });
+  
+  @override
+  Rect getClip(Size size) => padding.inflateRect(Offset.zero & size);
+
+  @override
+  bool shouldReclip(ClipPad oldClipper) => oldClipper.padding != padding;
 }
 
 class Chevron extends CustomPainter {
