@@ -29,6 +29,42 @@ class _MyScaffoldState extends State<MyScaffold> {
     });
   }
 
+  PreferredSize _createPreferredSize(BuildContext context) {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(50.0),
+      child: Container(
+        height: 120,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: <Color>[
+              Colors.redAccent,
+              Colors.orangeAccent,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: ListTile(
+              title: const Text('Flutter Mapp'),
+              trailing: IconButton(
+                icon: const Icon(
+                  Icons.search,
+                  size: 20,
+                ),
+                color: Colors.white,
+                onPressed: () {
+
+                },
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  final bool _showBottomsheet = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +72,16 @@ class _MyScaffoldState extends State<MyScaffold> {
       // appBar: AppBar(
       //   title: const Text("Flutter Example"),
       // ),
+      // appBar: _createPreferredSize(context),
+
+      // 底部一直存在的sheet
+      // bottomSheet: _showBottomsheet ? Container(
+      //     height: 80,
+      //     color: Colors.amber,
+      //     child: const Center(
+      //       child: Text('This is a persistent bottom sheet'),
+      //     ),
+      //   ) : null,
 
       // 主体内容
       body: pages[_index],
@@ -85,5 +131,4 @@ class MyBottomAppBar extends StatelessWidget {
       ),
     );
   }
-
 }

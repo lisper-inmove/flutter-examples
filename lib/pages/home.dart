@@ -1,4 +1,7 @@
+import 'package:example/components/mybottomsheet.dart';
 import 'package:example/components/mycheckbox.dart';
+import 'package:example/components/mymaterialbanner.dart';
+import 'package:example/components/mypreferredsize.dart';
 import 'package:example/components/myradiobutton.dart';
 import 'package:example/components/mytextfield.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,7 @@ class _HomePageState extends State<HomePage> {
     return ListView(
       padding: const EdgeInsets.all(4),
       children: [
+        const SizedBox(height: 100,),
         CommonChild(w: const MyCheckbox(), height: 50,),
         const SizedBox(height: 1,),
         CommonChild(w: const MyCheckboxListTile(), height: 50,),
@@ -26,6 +30,16 @@ class _HomePageState extends State<HomePage> {
         CommonChild(w: MyRadioListTile(), height: 150,),
         const SizedBox(height: 1),
         CommonChild(w: MyTextField(), height: 100),
+        const SizedBox(height: 1),
+        CommonChild(w: MyMaterialBanner(), height: 100),
+        const SizedBox(height: 1),
+        CommonChild(w: MyPreferredSize(), height: 100),
+        const SizedBox(height: 1),
+        CommonChild(w: Center(
+          child: ElevatedButton(
+            onPressed: () => MyBottomSheet().create(context), 
+            child: const Text('Show the BottomSheet')),
+        ), height: 100,),
       ],
     );
   }
