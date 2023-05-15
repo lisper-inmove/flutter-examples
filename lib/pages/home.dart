@@ -1,5 +1,7 @@
 import 'package:example/components/mybottomsheet.dart';
 import 'package:example/components/mycheckbox.dart';
+import 'package:example/components/mycircleavatar.dart';
+import 'package:example/components/mylongpressdraggable.dart';
 import 'package:example/components/mymaterialbanner.dart';
 import 'package:example/components/mypreferredsize.dart';
 import 'package:example/components/myradiobutton.dart';
@@ -40,6 +42,10 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => MyBottomSheet().create(context), 
             child: const Text('Show the BottomSheet')),
         ), height: 100,),
+        const SizedBox(height: 10),
+        CommonChild(w: MyLongPressDraggable().create(context), height: 100),
+        const SizedBox(height: 1),
+        CommonChild(w: MyCircleAvatar(), height: 100,),
       ],
     );
   }

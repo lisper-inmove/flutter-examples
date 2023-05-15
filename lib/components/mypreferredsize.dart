@@ -19,7 +19,7 @@ class MyPreferredSize extends StatelessWidget {
         child: SafeArea(
           child: Center(
             child: ListTile(
-              title: const Text('Flutter Mapp'),
+              title: const Text('PreferredSize'),
               trailing: IconButton(
                 icon: const Icon(
                   Icons.search,

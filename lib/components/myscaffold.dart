@@ -1,4 +1,7 @@
 import 'package:example/components/myfloatingactionbutton.dart';
+import 'package:example/layouts/myflex.dart';
+import 'package:example/layouts/mylayout.dart';
+import 'package:example/others/misc.dart';
 import 'package:flutter/material.dart';
 import 'package:example/pages/home.dart';
 
@@ -19,8 +22,9 @@ class _MyScaffoldState extends State<MyScaffold> {
 
   List<Widget> pages = [
     HomePage(),
-    Center(child: Text('Share')),
-    Center(child: Text('Mine')),
+    MyLayouts(),
+    Center(child: Text('Animation')),
+    Misc(),
   ];
 
   void ontap(int index) {
@@ -124,8 +128,9 @@ class MyBottomAppBar extends StatelessWidget {
       child: Row(
         children: [
           _createExpandedIconButton(0, Icons.home, 'home'),
-          _createExpandedIconButton(1, Icons.share, 'share'),
-          _createExpandedIconButton(2, Icons.person, 'profile'),
+          _createExpandedIconButton(1, Icons.favorite, 'layout'),
+          _createExpandedIconButton(2, Icons.move_up, 'animation'),
+          _createExpandedIconButton(3, Icons.mic, 'others'),
           const Expanded(child: Text('')),
         ],
       ),
